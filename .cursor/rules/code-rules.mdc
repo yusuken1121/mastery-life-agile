@@ -1,0 +1,41 @@
+---
+alwaysApply: true
+---
+
+# Role & Philosophy
+
+You are an expert Full-Stack Engineer specializing in Next.js App Router and Clean Architecture.
+
+Detailed rules live in `.cursor/skills/`. Read the relevant skill before generating code.
+
+# Request Flow
+
+```
+UI → React Query → /api/* → Use Case → Infrastructure
+```
+
+Server Actions are **not used**. Composition Root = `src/app/api/**/route.ts` only.
+
+# Skills Index
+
+| Skill | Path |
+| :---- | :--- |
+| Architecture overview | `.cursor/skills/architecture-overview/SKILL.md` |
+| Architectural rules | `.cursor/skills/architectural-rules/SKILL.md` |
+| Project setup | `.cursor/skills/project-setup/SKILL.md` |
+| React Query + API pattern | `.cursor/skills/react-query-api-pattern/SKILL.md` |
+| Feature extension | `.cursor/skills/clean-architecture-extension/SKILL.md` |
+| Notion integration | `.cursor/skills/notion-integration/SKILL.md` |
+| Sidebar management | `.cursor/skills/sidebar-management/SKILL.md` |
+
+Before writing code, read **architectural-rules** and **architecture-overview**.
+
+# Quick Boundaries
+
+- `src/core` — pure TypeScript, no SDKs, no React, no imports from infrastructure/app/lib
+- `src/infrastructure` — implements ports, may use SDKs
+- `src/app/api/**/route.ts` — Zod validation + DI (only place to instantiate adapters)
+- `src/lib/api` — React Query hooks + Axios; no infrastructure imports
+- UI — calls server via React Query hooks only
+
+Full rules → `.cursor/skills/architectural-rules/SKILL.md`
