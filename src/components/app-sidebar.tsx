@@ -119,8 +119,8 @@ export function AppSidebar() {
     <Sidebar className="border-r border-sidebar-border bg-sidebar/50 backdrop-blur-xl">
       <SidebarHeader className="p-4 border-b border-sidebar-border/50">
         <div className="flex items-center gap-2 px-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 text-white font-bold shadow-md">
-            N
+          <div className="flex h-8 w-8 items-center justify-center rounded-sm bg-[var(--ink)] font-display text-[var(--paper)]">
+            机
           </div>
           <div className="flex flex-col gap-0.5 leading-none">
             <span className="font-bold text-lg tracking-tight">
@@ -136,7 +136,7 @@ export function AppSidebar() {
       <SidebarContent className="px-2 py-4">
         <SidebarGroup>
           <SidebarGroupLabel className="px-2 text-xs font-semibold text-muted-foreground/70 uppercase tracking-wider mb-2">
-            Create
+            対話
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu className="space-y-1">
@@ -147,7 +147,7 @@ export function AppSidebar() {
 
         <SidebarGroup className="mt-4">
           <SidebarGroupLabel className="px-2 text-xs font-semibold text-muted-foreground/70 uppercase tracking-wider mb-2">
-            Manage
+            運用
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu className="space-y-1">
@@ -181,8 +181,8 @@ export function AppSidebar() {
               <span className="text-xs font-bold">U</span>
             </div>
             <div className="text-xs">
-              <p className="font-medium">User</p>
-              <p className="text-muted-foreground text-[10px]">Free Plan</p>
+              <p className="font-medium">個人</p>
+              <p className="text-muted-foreground text-[10px]">週 8 時間</p>
             </div>
           </div>
         </div>

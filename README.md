@@ -1,74 +1,48 @@
-# Next.js Clean Architecture Boilerplate (AI-Native)
+# 今週の机（Mastery Life Agile）
 
-A Next.js App Router boilerplate for AI-assisted development (Cursor, etc.).
+一人アジャイルの対話机です。目標を音声またはテキストで渡し、エピックと PBI に分解し、**承認した内容だけ** Notion に書きます。
 
-**Request flow:**
+## 使い方
+
+1. Notion の「Mastery Life Agile」ページに、自分の Integration を接続する
+2. `.env.example` を `.env.local` にコピーし、`GEMINI_API_KEY` と `NOTION_TOKEN` を入れる
+3. `pnpm install` → `pnpm dev`
+4. 机で話す → 赤い「承認」印を押す → Notion の Epics / Product Backlog に載る
+5. 日曜朝に「今週の計画を出す」、土曜夜に「振り返りを始める」
+
+スプリントは日曜〜土曜、週 8 時間、見積は時間単位です。パラメータは `config/app.json`。
+
+## アーキテクチャ
 
 ```
 UI → React Query → /api/* → Use Case → Infrastructure
 ```
 
-Detailed rules live in **Skills** — not in this file. Read the relevant skill before coding.
+詳細は [`.cursor/skills/`](.cursor/skills/) を読んでください。
 
-## Skills (Source of Truth)
+## Notion
 
-All architecture rules, patterns, and workflows are defined in [`.cursor/skills/`](.cursor/skills/).
+親ページ: [Mastery Life Agile](https://app.notion.com/p/3d29a12e522181c7897dc5cc1d750d1f)
 
-| Skill                                                                                | Use when…                                                 |
-| :----------------------------------------------------------------------------------- | :-------------------------------------------------------- |
-| [architecture-overview](.cursor/skills/architecture-overview/SKILL.md)               | Understanding layers, data flow, or directory layout      |
-| [architectural-rules](.cursor/skills/architectural-rules/SKILL.md)                   | Writing or reviewing code — import boundaries & standards |
-| [project-setup](.cursor/skills/project-setup/SKILL.md)                               | Installing, configuring env vars, running dev/test        |
-| [react-query-api-pattern](.cursor/skills/react-query-api-pattern/SKILL.md)           | Wiring UI → API Route → Use Case                          |
-| [clean-architecture-extension](.cursor/skills/clean-architecture-extension/SKILL.md) | Adding a new feature or AI provider end-to-end            |
-| [notion-integration](.cursor/skills/notion-integration/SKILL.md)                     | Connecting forms or records to Notion databases           |
-| [sidebar-management](.cursor/skills/sidebar-management/SKILL.md)                     | Adding a route to the sidebar menu                        |
+| DB | 用途 |
+| --- | --- |
+| Epics | 大目標 |
+| Product Backlog | 1〜2 週間粒度のタスク |
+| Sprints | 週次スプリント |
+| Retrospectives | Keep / Problem / Try |
 
-### For AI agents
+データベース ID は `.env.example` に入れてあります。Integration にページを共有しないと API から見えません。
 
-Before generating code, read:
+## Cron（任意）
 
-1. [architectural-rules](.cursor/skills/architectural-rules/SKILL.md)
-2. [architecture-overview](.cursor/skills/architecture-overview/SKILL.md)
-3. The skill matching your task (from the table above)
+Vercel に載せる場合、`vercel.json` が日曜 8:00 JST 相当（UTC 土曜 23:00）に計画、土曜 21:00 JST 相当（UTC 土曜 12:00）にレトロを起動します。書き込みはせず、承認待ちの案を作ります。
 
-Cursor always-applied rules: [`.cursor/rules/code-rules.mdc`](.cursor/rules/code-rules.mdc)
-
-## Learning Guide
-
-Beginner-friendly walkthrough (Japanese): [docs/beginner-architecture-guide.md](docs/beginner-architecture-guide.md)
-
-## Quick Start
+## 開発コマンド
 
 ```bash
 pnpm install
-cp .env.example .env.local   # fill in GEMINI_API_KEY, etc.
+cp .env.example .env.local
 pnpm dev
+pnpm test
+pnpm check
 ```
-
-Full setup details → [project-setup skill](.cursor/skills/project-setup/SKILL.md)
-
-## Format & Lint
-
-```bash
-pnpm format        # Prettier — auto-fix formatting
-pnpm format:check  # Prettier — check only (CI)
-pnpm lint          # ESLint
-pnpm lint:fix      # ESLint — auto-fix
-pnpm check         # format:check + lint + test
-```
-
-## Tech Stack
-
-Next.js 15 · TypeScript · React Query · Gemini · Notion · shadcn/ui · Tailwind v4 · Vitest · pnpm
-
-Details → [project-setup skill](.cursor/skills/project-setup/SKILL.md)
-
-## Adding a Feature (Checklist)
-
-1. Entity → Port → Use Case → Infrastructure
-2. Route Handler (`src/app/api/`) with Zod + DI
-3. API wrapper + React Query hook (`src/lib/api/`)
-4. UI component (`src/app/_components/`)
-
-Full guide → [clean-architecture-extension skill](.cursor/skills/clean-architecture-extension/SKILL.md)

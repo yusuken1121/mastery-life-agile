@@ -14,6 +14,12 @@ export class NotionPropertyBuilder {
 
     for (const field of fields) {
       const value = NotionPropertyBuilder.resolveValue(record, field)
+      if (NotionPropertyBuilder.isEmpty(value)) {
+        if (field.optional) continue
+        throw new Error(
+          `Missing value for Notion property "${field.propertyName}" (type: ${field.type})`,
+        )
+      }
       properties[field.propertyName] = NotionPropertyBuilder.toNotionProperty(
         field.type,
         value,
@@ -40,17 +46,17 @@ export class NotionPropertyBuilder {
     return raw
   }
 
+  private static isEmpty(value: unknown): boolean {
+    if (value === undefined || value === null || value === "") return true
+    if (Array.isArray(value) && value.length === 0) return true
+    return false
+  }
+
   private static toNotionProperty(
     type: NotionFieldType,
     value: unknown,
     propertyName: string,
   ): unknown {
-    if (value === undefined || value === null) {
-      throw new Error(
-        `Missing value for Notion property "${propertyName}" (type: ${type})`,
-      )
-    }
-
     switch (type) {
       case "title":
         return {
@@ -63,6 +69,15 @@ export class NotionPropertyBuilder {
       case "number":
         return { number: Number(value) }
       case "date":
+        if (typeof value === "object" && value !== null && "start" in value) {
+          const range = value as { start: string; end?: string }
+          return {
+            date: {
+              start: String(range.start),
+              end: range.end ? String(range.end) : null,
+            },
+          }
+        }
         return { date: { start: String(value) } }
       case "select":
         return { select: { name: String(value) } }
@@ -70,6 +85,12 @@ export class NotionPropertyBuilder {
         return { checkbox: Boolean(value) }
       case "url":
         return { url: String(value) }
+      case "relation": {
+        const ids = Array.isArray(value) ? value : [value]
+        return {
+          relation: ids.map((id) => ({ id: String(id) })),
+        }
+      }
       case "files":
         return {
           files: NotionPropertyBuilder.toFileEntries(value, propertyName),

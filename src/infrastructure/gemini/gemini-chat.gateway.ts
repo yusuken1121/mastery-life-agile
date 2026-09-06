@@ -5,7 +5,11 @@
  * This adapter converts between our domain model and Gemini's API.
  */
 
-import { GoogleGenerativeAI, type Content } from "@google/generative-ai"
+import {
+  GoogleGenerativeAI,
+  type Content,
+  type Part,
+} from "@google/generative-ai"
 import type { IAIGateway } from "@/core/ports/ai-gateway.port"
 import type { AIGenerateOptions } from "@/core/domain/ai-generate-options.vo"
 import type { Message } from "@/core/domain/message.entity"
@@ -36,10 +40,10 @@ export class GeminiGateway implements IAIGateway {
    */
   private convertMessagesToGeminiFormat(messages: Message[]): Content[] {
     return messages
-      .filter((msg) => msg.role !== "system") // Gemini handles system prompts separately
+      .filter((msg) => msg.role !== "system")
       .map((msg) => ({
         role: msg.role === "assistant" ? "model" : "user",
-        parts: [{ text: msg.content }],
+        parts: toParts(msg),
       }))
   }
 
@@ -74,30 +78,21 @@ export class GeminiGateway implements IAIGateway {
         temperature: options?.temperature ?? DEFAULT_TEMPERATURE,
         maxOutputTokens: options?.maxTokens ?? DEFAULT_MAX_TOKENS,
         topP: options?.topP,
+        ...(options?.jsonMode ? { responseMimeType: "application/json" } : {}),
       },
     })
 
-    // Convert messages to Gemini format
     const geminiMessages = this.convertMessagesToGeminiFormat(messages)
-
-    // Start the chat session
     const chat = model.startChat({
-      history: geminiMessages.slice(0, -1), // All messages except the last one
+      history: geminiMessages.slice(0, -1),
     })
 
-    // Get the last user message
     const lastMessage = geminiMessages[geminiMessages.length - 1]
     if (!lastMessage) {
       throw new Error("No messages provided")
     }
 
-    const messageText = lastMessage.parts[0]?.text
-    if (!messageText) {
-      throw new Error("Message content is empty")
-    }
-
-    // Send the message and get streaming response
-    const result = await chat.sendMessageStream(messageText)
+    const result = await chat.sendMessageStream(lastMessage.parts)
 
     // Convert Gemini's async iterable to Web ReadableStream
     return new ReadableStream<string>({
@@ -140,30 +135,21 @@ export class GeminiGateway implements IAIGateway {
         temperature: options?.temperature ?? DEFAULT_TEMPERATURE,
         maxOutputTokens: options?.maxTokens ?? DEFAULT_MAX_TOKENS,
         topP: options?.topP,
+        ...(options?.jsonMode ? { responseMimeType: "application/json" } : {}),
       },
     })
 
-    // Convert messages to Gemini format
     const geminiMessages = this.convertMessagesToGeminiFormat(messages)
-
-    // Start the chat session
     const chat = model.startChat({
-      history: geminiMessages.slice(0, -1), // All messages except the last one
+      history: geminiMessages.slice(0, -1),
     })
 
-    // Get the last user message
     const lastMessage = geminiMessages[geminiMessages.length - 1]
     if (!lastMessage) {
       throw new Error("No messages provided")
     }
 
-    const messageText = lastMessage.parts[0]?.text
-    if (!messageText) {
-      throw new Error("Message content is empty")
-    }
-
-    // Send the message and get complete response
-    const result = await chat.sendMessage(messageText)
+    const result = await chat.sendMessage(lastMessage.parts)
     const response = result.response
 
     return response.text()
@@ -176,4 +162,20 @@ export class GeminiGateway implements IAIGateway {
  */
 export function createGeminiGateway(apiKey?: string): IAIGateway {
   return new GeminiGateway(apiKey)
+}
+
+function toParts(message: Message): Part[] {
+  const parts: Part[] = []
+  const audio = message.metadata?.audioBase64
+  const mime = message.metadata?.audioMimeType
+  if (typeof audio === "string" && typeof mime === "string") {
+    parts.push({ inlineData: { mimeType: mime, data: audio } })
+  }
+  if (message.content) {
+    parts.push({ text: message.content })
+  }
+  if (parts.length === 0) {
+    parts.push({ text: "（空の入力）" })
+  }
+  return parts
 }

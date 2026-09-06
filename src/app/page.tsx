@@ -1,9 +1,5 @@
-import { ChatInterface } from "./_components/chat-interface"
+import { CoachDesk } from "./_components/coach-desk"
 
 export default function Home() {
-  return (
-    <>
-      <ChatInterface />
-    </>
-  )
+  return <CoachDesk />
 }

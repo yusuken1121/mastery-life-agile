@@ -6,8 +6,9 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-sans), "Hiragino Sans", sans-serif;
+  --font-mono: var(--font-mono), ui-monospace, monospace;
+  --font-display: var(--font-display), "Hiragino Mincho ProN", serif;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -37,96 +38,90 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --radius-2xl: calc(var(--radius) + 8px);
-  --radius-3xl: calc(var(--radius) + 12px);
-  --radius-4xl: calc(var(--radius) + 16px);
+  --radius-sm: 0.125rem;
+  --radius-md: 0.25rem;
+  --radius-lg: 0.375rem;
+  --radius-xl: 0.5rem;
+  --radius-2xl: 0.75rem;
+  --radius-3xl: 1rem;
+  --radius-4xl: 1.5rem;
 }
 
 :root {
-  --radius: 0.625rem;
-  --background: oklch(0.96 0.01 260);
-  --foreground: oklch(0.2 0.04 260);
-  --card: oklch(0.98 0.005 260);
-  --card-foreground: oklch(0.2 0.04 260);
-  --popover: oklch(0.98 0.005 260);
-  --popover-foreground: oklch(0.2 0.04 260);
-  --primary: oklch(0.55 0.22 260);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.92 0.02 260);
-  --secondary-foreground: oklch(0.2 0.04 260);
-  --muted: oklch(0.92 0.02 260);
-  --muted-foreground: oklch(0.5 0.03 260);
-  --accent: oklch(0.92 0.02 260);
-  --accent-foreground: oklch(0.2 0.04 260);
-  --destructive: oklch(0.6 0.2 25);
-  --border: oklch(0.88 0.02 260);
-  --input: oklch(0.88 0.02 260);
-  --ring: oklch(0.55 0.22 260);
-  --chart-1: oklch(0.55 0.22 260);
-  --chart-2: oklch(0.6 0.15 200);
-  --chart-3: oklch(0.5 0.2 290);
-  --chart-4: oklch(0.7 0.15 180);
-  --chart-5: oklch(0.6 0.15 320);
-  --sidebar: oklch(0.94 0.01 260);
-  --sidebar-foreground: oklch(0.25 0.04 260);
-  --sidebar-primary: oklch(0.55 0.22 260);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.9 0.02 260);
-  --sidebar-accent-foreground: oklch(0.2 0.04 260);
-  --sidebar-border: oklch(0.85 0.02 260);
-  --sidebar-ring: oklch(0.55 0.22 260);
+  --ink: #1a2c28;
+  --paper: #e7eee9;
+  --paper-raised: #f3f7f4;
+  --scroll: #d7e2db;
+  --seal: #b44538;
+  --brass: #8d6f3e;
+  --moss: #2f6b4f;
+  --radius: 0.25rem;
+  --background: #e7eee9;
+  --foreground: #1a2c28;
+  --card: #f3f7f4;
+  --card-foreground: #1a2c28;
+  --popover: #f3f7f4;
+  --popover-foreground: #1a2c28;
+  --primary: #1a2c28;
+  --primary-foreground: #e7eee9;
+  --secondary: #d7e2db;
+  --secondary-foreground: #1a2c28;
+  --muted: #d7e2db;
+  --muted-foreground: #5b6e67;
+  --accent: #d7e2db;
+  --accent-foreground: #1a2c28;
+  --destructive: #b44538;
+  --border: #c5d2cb;
+  --input: #c5d2cb;
+  --ring: #8d6f3e;
+  --chart-1: #1a2c28;
+  --chart-2: #2f6b4f;
+  --chart-3: #8d6f3e;
+  --chart-4: #b44538;
+  --chart-5: #5b6e67;
+  --sidebar: #dce7e1;
+  --sidebar-foreground: #1a2c28;
+  --sidebar-primary: #1a2c28;
+  --sidebar-primary-foreground: #e7eee9;
+  --sidebar-accent: #c9d8d0;
+  --sidebar-accent-foreground: #1a2c28;
+  --sidebar-border: #c5d2cb;
+  --sidebar-ring: #8d6f3e;
 }
 
 .dark {
-  /* Deep Navy/Purple Background */
-  --background: oklch(0.12 0.05 265);
-  --foreground: oklch(0.985 0 0);
-
-  /* Slightly lighter deep blue/purple for cards */
-  --card: oklch(0.18 0.06 265);
-  --card-foreground: oklch(0.985 0 0);
-
-  --popover: oklch(0.18 0.06 265);
-  --popover-foreground: oklch(0.985 0 0);
-
-  /* Neon Blue/Purple Primary */
-  --primary: oklch(0.65 0.25 280);
-  --primary-foreground: oklch(0.1 0.03 260);
-
-  /* Deep purple accents */
-  --secondary: oklch(0.25 0.1 280);
-  --secondary-foreground: oklch(0.985 0 0);
-
-  --muted: oklch(0.25 0.05 265);
-  --muted-foreground: oklch(0.7 0.05 265);
-
-  --accent: oklch(0.25 0.1 265);
-  --accent-foreground: oklch(0.985 0 0);
-
-  --destructive: oklch(0.6 0.25 25);
-  --border: oklch(0.3 0.1 265);
-  --input: oklch(0.3 0.1 265);
-  --ring: oklch(0.65 0.25 280);
-
-  --chart-1: oklch(0.65 0.25 280);
-  --chart-2: oklch(0.7 0.2 220);
-  --chart-3: oklch(0.6 0.25 320);
-  --chart-4: oklch(0.8 0.2 190);
-  --chart-5: oklch(0.7 0.2 340);
-
-  /* Sidebar similar to background but distinct */
-  --sidebar: oklch(0.14 0.06 265);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.65 0.25 280);
-  --sidebar-primary-foreground: oklch(0.1 0.03 260);
-  --sidebar-accent: oklch(0.25 0.1 265);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(0.25 0.08 265);
-  --sidebar-ring: oklch(0.65 0.25 280);
+  --ink: #d7e2db;
+  --paper: #121c19;
+  --paper-raised: #1b2a25;
+  --scroll: #16221e;
+  --seal: #d46a5c;
+  --brass: #c4a35a;
+  --background: #121c19;
+  --foreground: #d7e2db;
+  --card: #1b2a25;
+  --card-foreground: #d7e2db;
+  --popover: #1b2a25;
+  --popover-foreground: #d7e2db;
+  --primary: #d7e2db;
+  --primary-foreground: #121c19;
+  --secondary: #1b2a25;
+  --secondary-foreground: #d7e2db;
+  --muted: #1b2a25;
+  --muted-foreground: #9aada6;
+  --accent: #1b2a25;
+  --accent-foreground: #d7e2db;
+  --destructive: #d46a5c;
+  --border: #2a3c36;
+  --input: #2a3c36;
+  --ring: #c4a35a;
+  --sidebar: #0f1815;
+  --sidebar-foreground: #d7e2db;
+  --sidebar-primary: #d7e2db;
+  --sidebar-primary-foreground: #121c19;
+  --sidebar-accent: #1b2a25;
+  --sidebar-accent-foreground: #d7e2db;
+  --sidebar-border: #2a3c36;
+  --sidebar-ring: #c4a35a;
 }
 
 @layer base {
@@ -135,93 +130,32 @@
   }
   body {
     @apply bg-background text-foreground;
+    background-image:
+      linear-gradient(180deg, rgba(26, 44, 40, 0.03), transparent 180px),
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 23px,
+        rgba(26, 44, 40, 0.03) 24px
+      );
+  }
+  .font-display {
+    font-family: var(--font-display), "Hiragino Mincho ProN", serif;
   }
 }
 
-/* Custom Effects */
-@property --angle {
-  syntax: "<angle>";
-  initial-value: 0deg;
-  inherits: false;
+.sprint-scroll {
+  writing-mode: horizontal-tb;
+  box-shadow: inset 0 0 0 1px rgba(141, 111, 62, 0.25);
 }
 
-@keyframes spin {
-  to {
-    --angle: 360deg;
+.hanko {
+  background: radial-gradient(circle at 30% 30%, rgba(180, 69, 56, 0.12), transparent 55%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
   }
-}
-
-.glow-border {
-  position: relative;
-  isolation: isolate;
-  border-radius: var(--radius);
-}
-
-.glow-border::before {
-  content: "";
-  position: absolute;
-  inset: -3px;
-  background: conic-gradient(from var(--angle), var(--glow-colors));
-  filter: blur(12px);
-  z-index: -1;
-  border-radius: inherit;
-  animation: spin 3s linear infinite;
-  opacity: 0.6;
-}
-
-.glow-border::after {
-  content: "";
-  position: absolute;
-  inset: -2px;
-  background: conic-gradient(from var(--angle), var(--glow-colors));
-  z-index: -2;
-  border-radius: inherit;
-  animation: spin 3s linear infinite;
-  opacity: 0.4;
-}
-
-.glow-border-news {
-  --glow-colors: #3b82f6, #06b6d4, #f59e0b, #3b82f6;
-}
-
-.glow-border-general {
-  --glow-colors: #a855f7, #ec4899, #8b5cf6, #a855f7;
-}
-
-@keyframes text-shimmer {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-.text-glow-effect {
-  background-size: 200% auto;
-  animation: text-shimmer 3s linear infinite;
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  background-image: linear-gradient(to right, var(--text-glow-colors));
-  filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.3));
-}
-
-.text-glow-news {
-  --text-glow-colors: #2563eb, #06b6d4, #2563eb;
-}
-
-.dark .text-glow-news {
-  --text-glow-colors: #60a5fa, #22d3ee, #60a5fa;
-}
-
-.text-glow-general {
-  --text-glow-colors: #9333ea, #db2777, #9333ea;
-}
-
-.dark .text-glow-general {
-  --text-glow-colors: #c084fc, #f472b6, #c084fc;
 }

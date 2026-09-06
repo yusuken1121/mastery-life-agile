@@ -7,16 +7,19 @@ export type NotionFieldType =
   | "files"
   | "checkbox"
   | "url"
+  | "relation"
 
 export type NotionFieldMapping<TRecord> = {
   /** Omit when using transform-only fields (e.g. derived title). */
   recordKey?: keyof TRecord & string
   propertyName: string
   type: NotionFieldType
+  optional?: boolean
   transform?: (value: unknown, record: TRecord) => unknown
 }
 
 export type NotionDatabaseConfig<TRecord> = {
   databaseId: string
+  dataSourceId?: string
   fields: Array<NotionFieldMapping<TRecord>>
 }

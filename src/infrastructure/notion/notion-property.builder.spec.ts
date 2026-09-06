@@ -168,5 +168,26 @@ describe("NotionPropertyBuilder", () => {
         "Unsupported Notion field type: unsupported-type",
       )
     })
+
+    it("skips optional empty fields and maps relations", () => {
+      const fields: Array<
+        NotionFieldMapping<TestRecord & { epicId?: string }>
+      > = [
+        { recordKey: "title", propertyName: "Name", type: "title" },
+        {
+          recordKey: "epicId",
+          propertyName: "Epic",
+          type: "relation",
+          optional: true,
+        },
+      ]
+
+      const result = NotionPropertyBuilder.build(
+        { ...sampleRecord, epicId: "abc-123" },
+        fields,
+      )
+
+      expect(result.Epic).toEqual({ relation: [{ id: "abc-123" }] })
+    })
   })
 })

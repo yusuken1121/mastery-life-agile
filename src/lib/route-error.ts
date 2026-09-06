@@ -2,10 +2,26 @@ import { NextResponse } from "next/server"
 import { z } from "zod"
 import { InvalidContactSubmissionError } from "@/core/domain/contact-submission.entity"
 import { InvalidMessageHistoryError } from "@/core/domain/message.validation"
+import { InvalidCoachTurnError } from "@/core/domain/coach-turn.entity"
+import { InvalidEpicProposalError } from "@/core/domain/epic.entity"
+import { InvalidPbiProposalError } from "@/core/domain/pbi.entity"
+import { InvalidSprintPlanError } from "@/core/domain/sprint.entity"
+import { InvalidRetroProposalError } from "@/core/domain/retrospective.entity"
+import { MissingProposalError } from "@/core/use-cases/approve-proposal.use-case"
+import { SprintAlreadyPlannedError } from "@/core/use-cases/propose-sprint-plan.use-case"
+import { MissingSprintError } from "@/core/use-cases/run-retrospective.use-case"
 
 const DOMAIN_ERRORS = [
   InvalidContactSubmissionError,
   InvalidMessageHistoryError,
+  InvalidCoachTurnError,
+  InvalidEpicProposalError,
+  InvalidPbiProposalError,
+  InvalidSprintPlanError,
+  InvalidRetroProposalError,
+  MissingProposalError,
+  SprintAlreadyPlannedError,
+  MissingSprintError,
 ]
 
 export function handleRouteError(

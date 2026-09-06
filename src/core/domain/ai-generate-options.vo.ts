@@ -8,4 +8,5 @@ export interface AIGenerateOptions {
   topP?: number
   model?: string
   systemPrompt?: string
+  jsonMode?: boolean
 }

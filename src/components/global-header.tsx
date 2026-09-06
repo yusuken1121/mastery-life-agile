@@ -19,7 +19,7 @@ export function GlobalHeader() {
 
   // Helper to find label by path
   const getPageTitle = (path: string) => {
-    if (path === "/") return "Chat"
+    if (path === "/") return "机"
 
     // Search in config
     const configEntry = Object.values(SIDEBAR_CONFIG).find(
@@ -40,7 +40,7 @@ export function GlobalHeader() {
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem className="hidden md:block">
-            <BreadcrumbLink href="/">Home</BreadcrumbLink>
+            <BreadcrumbLink href="/">机</BreadcrumbLink>
           </BreadcrumbItem>
           {pathname !== "/" && (
             <>
